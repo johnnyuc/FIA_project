@@ -24,7 +24,7 @@ public class GhostHome : GhostBehavior
         // Reverse direction everytime the ghost hits a wall to create the
         // effect of the ghost bouncing around the home
         if (enabled && collision.gameObject.CompareTag("Obstacle")) {
-            ghost.movement.SetDirection(-ghost.movement.direction);
+            setDirection(-currentDirection());
         }
     }
 
@@ -35,7 +35,7 @@ public class GhostHome : GhostBehavior
         ghost.movement.rigidbody.isKinematic = true;
         ghost.movement.enabled = false;
 
-        Vector3 position = transform.position;
+        Vector3 position = currentPosition();
 
         float duration = 0.5f;
         float elapsed = 0f;

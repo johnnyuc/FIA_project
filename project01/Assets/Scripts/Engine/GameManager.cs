@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     public int Lives => lives;
     public int Score => score;
+    public int level=0;
 
     private void Awake()
     {
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour
     {
         SetScore(0);
         SetLives(3);
+        level = 0;
         NewRound();
     }
 
@@ -57,6 +59,7 @@ public class GameManager : MonoBehaviour
         }
 
         ResetState();
+        level ++;
     }
 
     private void ResetState()

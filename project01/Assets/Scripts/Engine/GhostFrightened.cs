@@ -82,7 +82,7 @@ public class GhostFrightened : GhostBehavior
             {
                 // If the distance in this direction is greater than the current
                 // max distance then this direction becomes the new farthest
-                Vector3 newPosition = transform.position + new Vector3(availableDirection.x, availableDirection.y);
+                Vector3 newPosition = currentPosition() + new Vector3(availableDirection.x, availableDirection.y);
                 float distance = Math.Abs(pacmanPosition.x-newPosition.x) + Math.Abs(pacmanPosition.y-newPosition.y);
             
                 if (distance > maxDistance)

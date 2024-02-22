@@ -87,6 +87,10 @@ public abstract class GhostBehavior : MonoBehaviour
         return gameManagerObject.GetComponent<GameManager>().Lives;
     }
 
+    protected int getCurrentLevel(){
+        return gameManagerObject.GetComponent<GameManager>().level;
+    }
+
     protected Vector3[] getRemainingPellets()
     {
         GameManager gm = gameManagerObject.GetComponent<GameManager>();
@@ -218,12 +222,18 @@ public abstract class GhostBehavior : MonoBehaviour
         return ghost.movement.direction;
     }
 
+    protected Vector3 currentPosition()
+    {
+        return transform.position;
+    }
+
     
     /// Actions ///
     protected void setDirection(Vector2 direction)
     {
         ghost.movement.SetDirection(direction);   
     }
+
 
 
 
