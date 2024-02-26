@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Android;
+using Unity.VisualScripting;
 
 [RequireComponent(typeof(Ghost))]
 public abstract class GhostBehavior : MonoBehaviour
@@ -138,9 +139,10 @@ public abstract class GhostBehavior : MonoBehaviour
         GameObject closest = null;
         float smallestDistance = 0;
         foreach (GameObject g in ghosts)
-        {
-            if (g != this)
+        {            
+            if (g != this.gameObject)
             {
+                
                 float distance = Math.Abs(g.transform.position.x-transform.position.x) + Math.Abs(g.transform.position.y - transform.position.y);
                 if (closest == null || distance < smallestDistance)
                 {
@@ -227,7 +229,7 @@ public abstract class GhostBehavior : MonoBehaviour
         return transform.position;
     }
 
-    
+
     /// Actions ///
     protected void setDirection(Vector2 direction)
     {

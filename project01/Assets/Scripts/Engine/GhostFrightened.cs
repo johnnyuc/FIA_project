@@ -37,6 +37,7 @@ public class GhostFrightened : GhostBehavior
         eaten = true;
         ghost.SetPosition(ghost.home.inside.position);
         ghost.home.Enable(duration);
+        setDirection(Vector2.up);
 
         body.enabled = false;
         eyes.enabled = true;

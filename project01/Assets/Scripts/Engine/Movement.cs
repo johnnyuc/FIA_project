@@ -33,17 +33,12 @@ public class Movement : MonoBehaviour
         enabled = true;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        // Try to move in the next direction while it's queued to make movements
-        // more responsive
         if (nextDirection != Vector2.zero) {
             SetDirection(nextDirection);
         }
-    }
-
-    private void FixedUpdate()
-    {
+        
         Vector2 position = rigidbody.position;
         Vector2 translation = direction * speed * speedMultiplier * Time.fixedDeltaTime;
 
