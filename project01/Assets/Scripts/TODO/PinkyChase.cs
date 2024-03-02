@@ -9,7 +9,7 @@ public class PinkyChase : GhostChase
         // Pinky's chase behavior
         // The direction that will minimize the distance to 4 tiles in front of Pacman will be selected
 
-        // instantiating the intersection node object
+        // Instantiating the intersection node object
         Node node = other.GetComponent<Node>();
 
         // First check if this behaviour is enabled
@@ -17,7 +17,7 @@ public class PinkyChase : GhostChase
         if (!(node != null && isChasing() && !isFrightened()))
             return;
 
-        //Get the available directions in this intersection
+        // Get the available directions in this intersection
         List<Vector2> dirs = getAvailableDirections(node);
     
         // Get the position of the 4 tiles in front of Pacman's position
@@ -42,7 +42,7 @@ public class PinkyChase : GhostChase
             dist = Vector3.Distance(futurePos, pacman4FrontTilesPos);
 
             // If the distance to the target location when the current direction is followed
-            // is lesser than the minimum distance yet, update it with the current values
+            // is less than the minimum distance yet, update it with the current values
             if (dist < min_dist)
             {
                 min_dist = dist;
@@ -52,4 +52,3 @@ public class PinkyChase : GhostChase
         setDirection(closest_dir);
     }
 }
-
