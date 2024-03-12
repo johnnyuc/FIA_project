@@ -43,7 +43,7 @@ public class InkyChase : GhostChase
         else
             chosenPos = avgPos;
 
-        //Get the available directions in this intersection
+        // Get the available directions in this intersection
         List<Vector2> dirs = getAvailableDirections(node);
         Vector2 closest_dir = dirs[0];
         float min_dist = int.MaxValue;
