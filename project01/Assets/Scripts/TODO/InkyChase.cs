@@ -5,16 +5,16 @@ using UnityEngine;
 public class InkyChase : GhostChase
 {
     protected override void OnTriggerEnter2D(Collider2D other){
-        //Inky's custom chase behavior
-        //We only have to select the next direction to move to
+        // Inky's chase behavior
+        // We only have to select the next direction to move to
 
-        //instantiating the intersection node object
+        // Instantiating the intersection node object
         Node node = other.GetComponent<Node>();
 
 
-        //First check if this behaviour is enabled
-        //and the ghost is not frightened
-        if (!(node != null && isChasing() && !isFrightened()))
+        // First check if this behaviour is enabled
+        // and the ghost is not frightened
+        if (!(node != null && isChasing() && !isFrightened())) 
             return;
 
         Vector3[] pellets = getRemainingPellets();

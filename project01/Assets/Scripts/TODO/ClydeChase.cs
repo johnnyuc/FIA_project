@@ -17,7 +17,7 @@ public class ClydeChase : GhostChase
         if (!(node != null && isChasing() && !isFrightened()))
             return;
 
-        //Get the available directions in this intersection
+        // Get the available directions in this intersection
         List<Vector2> dirs = getAvailableDirections(node);
 
         // Get the position of the closest ghost

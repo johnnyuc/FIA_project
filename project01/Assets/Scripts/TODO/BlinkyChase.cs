@@ -10,7 +10,7 @@ public class BlinkyChase : GhostChase
         // Blinky's chase behavior
         // The direction that will minimize the distance to Pacman will be selected
 
-        // instantiating the intersection node object
+        // Instantiating the intersection node object
         Node node = other.GetComponent<Node>();
 
         // First check if this behaviour is enabled
@@ -18,7 +18,7 @@ public class BlinkyChase : GhostChase
         if (!(node != null && isChasing() && !isFrightened()))
             return;
         
-        //Get the available directions in this intersection
+        // Get the available directions in this intersection
         List<Vector2> dirs = getAvailableDirections(node);
 
         // Get Pacman's position
@@ -43,7 +43,7 @@ public class BlinkyChase : GhostChase
             dist = Vector3.Distance(futurePos, pacmanPos);
                     
             // If the distance to Pacman when the current direction is followed
-            // is lesser than the minimum distance yet, update it with the current values
+            // is less than the minimum distance yet, update it with the current values
             if (dist < min_dist) {
                 min_dist = dist;
                 closest_dir = dir;
@@ -52,4 +52,3 @@ public class BlinkyChase : GhostChase
         setDirection(closest_dir);
     }
 }
-
