@@ -548,6 +548,7 @@ MonoBehaviour:
   gameOverText: {fileID: 1133529214}
   scoreText: {fileID: 1945791160}
   livesText: {fileID: 278868602}
+  level: 0
 --- !u!4 &469897152
 Transform:
   m_ObjectHideFlags: 0
@@ -7777,7 +7778,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5660416300114475820, guid: 0d1f951e4ac24fe478d688dbf86a5c39, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5660416300114475820, guid: 0d1f951e4ac24fe478d688dbf86a5c39, type: 3}
       propertyPath: m_TagString
@@ -7915,7 +7916,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2336075042848322182, guid: 25f5544974e8f0b409f1c5070cbb2c0e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2336075042848322182, guid: 25f5544974e8f0b409f1c5070cbb2c0e, type: 3}
       propertyPath: m_TagString
@@ -10648,6 +10649,10 @@ PrefabInstance:
     - target: {fileID: 1814567404648583842, guid: 87e861fcfe4201c4d8213cba69c0f024, type: 3}
       propertyPath: m_Layer
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814567404648583842, guid: 87e861fcfe4201c4d8213cba69c0f024, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1814567404648583842, guid: 87e861fcfe4201c4d8213cba69c0f024, type: 3}
       propertyPath: m_TagString
