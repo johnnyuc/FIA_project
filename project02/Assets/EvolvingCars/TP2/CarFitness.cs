@@ -29,7 +29,6 @@ namespace GeneticSharp.Runner.UnityApp.Car
             {
                 Thread.Sleep(1000);
 
-                
                 float Distance = c.Distance;
                 float EllapsedTime = c.EllapsedTime;
                 float NumberOfWheels = c.NumberOfWheels;
@@ -59,7 +58,6 @@ namespace GeneticSharp.Runner.UnityApp.Car
 
             ChromosomesToEndEvaluation.Add(c);
 
-
             do
             {
                 Thread.Sleep(1000);
@@ -69,6 +67,5 @@ namespace GeneticSharp.Runner.UnityApp.Car
 
             return fitness;
         }
-
     }
 }

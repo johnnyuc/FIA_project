@@ -18,7 +18,6 @@ public class ParentSelection : SelectionBase
 
     protected override IList<IChromosome> PerformSelectChromosomes(int number, Generation generation)
     {
-
         IList<CarChromosome> population = generation.Chromosomes.Cast<CarChromosome>().ToList();
         IList<IChromosome> parents = new List<IChromosome>();
         
