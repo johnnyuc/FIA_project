@@ -16,16 +16,15 @@ public class SurvivorSelection : ReinsertionBase
     
     protected override IList<IChromosome> PerformSelectChromosomes(IPopulation population, IList<IChromosome> offspring, IList<IChromosome> parents)
     {
-
+        /*Elitist survivor selection*/
+        /*It is already implemented*/
         var bestParents = population.CurrentGeneration.Chromosomes.OrderByDescending(p => p.Fitness).Take(eliteSize).ToList();
 
         for (int i = 0; i < bestParents.Count; i++)
         {
             offspring[i] = bestParents[i];
         }
-        
 
         return offspring;
     }
-    
 }

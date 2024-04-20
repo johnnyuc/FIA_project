@@ -10,10 +10,6 @@ namespace GeneticSharp.Runner.UnityApp.Commons
 {
     public class Crossover : ICrossover
     {
-  
-
-        
-
         public int ParentsNumber { get; private set; }
 
         public int ChildrenNumber { get; private set; }
@@ -24,6 +20,9 @@ namespace GeneticSharp.Runner.UnityApp.Commons
 
         protected float crossoverProbability;
 
+        // Crossover options
+        public bool IsUniformCrossover {  get; private set; }
+        public int KPoints {  get; private set; }
 
         public Crossover(float crossoverProbability) : this(2, 2, 2, true)
         {
@@ -44,11 +43,64 @@ namespace GeneticSharp.Runner.UnityApp.Commons
             IChromosome parent2 = parents[1];
             IChromosome offspring1 = parent1.Clone();
             IChromosome offspring2 = parent2.Clone();
+
+            /* YOUR CODE HERE */
+            /*REPLACE THESE LINES BY YOUR CROSSOVER IMPLEMENTATION*/
+            //offspring1.ReplaceGenes(0, parent2.GetGenes().ToArray());
+            //offspring2.ReplaceGenes(0, parent1.GetGenes().ToArray());
+            
+            // Use UniformCrossover
+            //return UniformCrossover(parents);
+
+            // Use KPointCrossover
+            //return KPointCrossover(parents);
+
+            /*END OF YOUR CODE*/
+
+            return new List<IChromosome> { offspring1, offspring2 };
+        }
+
+        public IList<IChromosome> UniformCrossover(IList<IChromosome> parents)
+        {
+            IChromosome parent1 = parents[0];
+            IChromosome parent2 = parents[1];
+            IChromosome offspring1 = parent1.Clone();
+            IChromosome offspring2 = parent2.Clone();
+
+            for (int i = 0; i < parent1.Length; i++)
+            {
+                if (RandomizationProvider.Current.GetInt(0, 2) == 1)
+                { 
+                    offspring1.ReplaceGene(i, parent2.GetGene(i)); 
+                    offspring2.ReplaceGene(i, parent1.GetGene(i));
+                }
+            }
+            return new List<IChromosome> { offspring1, offspring2 };
+        }
+
+        public IList<IChromosome> KPointCrossover(IList<IChromosome> parents)
+        {
+            IChromosome parent1 = parents[0];
+            IChromosome parent2 = parents[1]; 
+            IChromosome offspring1 = parent1.Clone();
+            IChromosome offspring2 = parent2.Clone();
+            int nrPoints = 0;    
+
+            for (int i = 1; i < parent1.Length-1; i++)
+            {
+                if (UnityEngine.Random.Range(0, 2) == 0)
+                    continue;
+
+                nrPoints++;
+                 
+                offspring1.ReplaceGenes(i, parent2.GetGenes().ToArray());                
+            }
+
             offspring1.ReplaceGenes(0, parent2.GetGenes().ToArray());
             offspring2.ReplaceGenes(0, parent1.GetGenes().ToArray());
 
             return new List<IChromosome> { offspring1, offspring2 };
-            
         }
+
     }
 }
