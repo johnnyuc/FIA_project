@@ -6,3 +6,4 @@
 
 ## Folder struct
 * project01 - Pacman
+* project02 - SodaRace
