@@ -44,20 +44,10 @@ namespace GeneticSharp.Runner.UnityApp.Commons
             IChromosome offspring1 = parent1.Clone();
             IChromosome offspring2 = parent2.Clone();
 
-            /* YOUR CODE HERE */
-            /*REPLACE THESE LINES BY YOUR CROSSOVER IMPLEMENTATION*/
-            //offspring1.ReplaceGenes(0, parent2.GetGenes().ToArray());
-            //offspring2.ReplaceGenes(0, parent1.GetGenes().ToArray());
-            
-            // Use UniformCrossover
-            //return UniformCrossover(parents);
-
-            // Use KPointCrossover
-            //return KPointCrossover(parents);
-
-            /*END OF YOUR CODE*/
-
-            return new List<IChromosome> { offspring1, offspring2 };
+            if (IsUniformCrossover)
+                return UniformCrossover(parents);
+            else
+                return KPointCrossover(parents);
         }
 
         public IList<IChromosome> UniformCrossover(IList<IChromosome> parents)
@@ -84,20 +74,28 @@ namespace GeneticSharp.Runner.UnityApp.Commons
             IChromosome parent2 = parents[1]; 
             IChromosome offspring1 = parent1.Clone();
             IChromosome offspring2 = parent2.Clone();
-            int nrPoints = 0;    
-
-            for (int i = 1; i < parent1.Length-1; i++)
+            List<int> switchPoints = new List<int>();
+            // Calculate random switch points
+            while (switchPoints.Count < KPoints) { }
             {
-                if (UnityEngine.Random.Range(0, 2) == 0)
-                    continue;
-
-                nrPoints++;
-                 
-                offspring1.ReplaceGenes(i, parent2.GetGenes().ToArray());                
+                int randomPoint = RandomizationProvider.Current.GetInt(1, parent1.Length - 1);
+                if (!switchPoints.Contains(randomPoint))
+                    switchPoints.Add(randomPoint);
             }
 
-            offspring1.ReplaceGenes(0, parent2.GetGenes().ToArray());
-            offspring2.ReplaceGenes(0, parent1.GetGenes().ToArray());
+            // Replace the genes
+            bool switchGenes = false;
+            for (int i = 0; i < parent1.Length; i++)
+            {
+                if (switchPoints.Contains(i))
+                    switchGenes = !switchGenes;
+
+                if (switchGenes)
+                {
+                    offspring1.ReplaceGene(i, parent2.GetGene(i));
+                    offspring2.ReplaceGene(i, parent1.GetGene(i));
+                }
+            }
 
             return new List<IChromosome> { offspring1, offspring2 };
         }
