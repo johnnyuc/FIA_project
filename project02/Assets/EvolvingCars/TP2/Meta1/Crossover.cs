@@ -39,15 +39,7 @@ namespace GeneticSharp.Runner.UnityApp.Commons
 
         public IList<IChromosome> Cross(IList<IChromosome> parents)
         {
-            IChromosome parent1 = parents[0];
-            IChromosome parent2 = parents[1];
-            IChromosome offspring1 = parent1.Clone();
-            IChromosome offspring2 = parent2.Clone();
-
-            if (IsUniformCrossover)
-                return UniformCrossover(parents);
-            else
-                return KPointCrossover(parents);
+            return UniformCrossover(parents);
         }
 
         public IList<IChromosome> UniformCrossover(IList<IChromosome> parents)
@@ -65,6 +57,7 @@ namespace GeneticSharp.Runner.UnityApp.Commons
                     offspring2.ReplaceGene(i, parent1.GetGene(i));
                 }
             }
+            Debug.Log("Uniform Crossover done");
             return new List<IChromosome> { offspring1, offspring2 };
         }
 
@@ -96,7 +89,7 @@ namespace GeneticSharp.Runner.UnityApp.Commons
                     offspring2.ReplaceGene(i, parent1.GetGene(i));
                 }
             }
-
+            Debug.Log("K Point Crossover done");
             return new List<IChromosome> { offspring1, offspring2 };
         }
     }

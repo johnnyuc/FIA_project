@@ -1,6 +1,8 @@
+using System;
 using System.Diagnostics;
 using GeneticSharp.Domain.Chromosomes;
 using GeneticSharp.Domain.Mutations;
+using GeneticSharp.Domain.Randomizations;
 using GeneticSharp.Runner.UnityApp.Car;
 
 public class Mutation : IMutation
@@ -14,12 +16,17 @@ public class Mutation : IMutation
 
     public void Mutate(IChromosome chromosome, float probability)
     {
-        
-        /* YOUR CODE HERE */
-        /*REPLACE THESE LINES BY YOUR MUTATION IMPLEMENTATION*/
-        CarChromosome newChromosome = new CarChromosome(((CarChromosome)chromosome).getConfig());
-        chromosome.ReplaceGenes(0, newChromosome.GetGenes());
-        /*END OF YOUR CODE*/
+        // Iterate over each gene in the chromosome
+        for (int i = 0; i < chromosome.Length; i++)
+        {
+            // Check if a mutation should occur for this gene
+            if (RandomizationProvider.Current.GetDouble() < probability)
+            {
+                // Mutate the gene - replace it with a new random value
+                chromosome.ReplaceGene(i, new Gene(RandomizationProvider.Current.GetDouble()));
+                UnityEngine.Debug.Log("Mutated!");
+            }
+        }
     }
 
 }

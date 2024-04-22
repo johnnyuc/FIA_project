@@ -47,8 +47,11 @@ namespace GeneticSharp.Runner.UnityApp.Car
                 /*YOUR CODE HERE*/
                 /*Note que é executado ao longo da simulação*/
 
-                //fitness = SumVelocities;
-                fitness = Distance;
+                fitness = Distance / EllapsedTime;
+                if (RoadCompleted == 0)
+                {
+                    fitness = (float)(fitness * 0.75);
+                }
 
                 /*END OF YOUR CODE*/
 
