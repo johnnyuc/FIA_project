@@ -46,13 +46,22 @@ namespace GeneticSharp.Runner.UnityApp.Car
 
                 /*YOUR CODE HERE*/
                 /*Note que é executado ao longo da simulação*/
-
-                fitness = Distance / EllapsedTime;
-                if (RoadCompleted == 0)
+                if (EllapsedTime == 0)
+                    fitness = 0;
+                else
                 {
-                    fitness = (float)(fitness * 0.75);
-                }
+                    float averageVelocity = SumVelocities / Velocities.Count();
+                    float averageForce = SumTotalForces / Forces.Count();
 
+                    // Fitness components
+                    float speedComponent = averageVelocity;  // Reward higher average speeds
+                    float efficiencyComponent = Distance / SumTotalForces;  // Reward greater distances with less force used
+                    float completionComponent = RoadCompleted * 100;  // Large bonus for completing the track
+
+                    // Composite Fitness
+                    fitness = speedComponent + efficiencyComponent + completionComponent;
+
+                }
                 /*END OF YOUR CODE*/
 
                 c.Fitness = fitness;

@@ -22,9 +22,13 @@ public class Mutation : IMutation
             // Check if a mutation should occur for this gene
             if (RandomizationProvider.Current.GetDouble() < probability)
             {
+                double geneValue = (double)chromosome.GetGene(i).Value;
+                // Generate a noise value [-1, 1)
+                double noise = (RandomizationProvider.Current.GetDouble()*2) - 1;
+
                 // Mutate the gene - replace it with a new random value
-                chromosome.ReplaceGene(i, new Gene(RandomizationProvider.Current.GetDouble()));
-                UnityEngine.Debug.Log("Mutated!");
+                chromosome.ReplaceGene(i, new Gene(geneValue + noise));
+                UnityEngine.Debug.Log("Mutated");
             }
         }
     }

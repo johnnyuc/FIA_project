@@ -24,9 +24,11 @@ namespace GeneticSharp.Runner.UnityApp.Commons
         public bool IsUniformCrossover {  get; private set; }
         public int KPoints {  get; private set; }
 
-        public Crossover(float crossoverProbability) : this(2, 2, 2, true)
+        public Crossover(float crossoverProbability, bool IsUniformCrossover, int KPoints) : this(2, 2, 2, true)
         {
             this.crossoverProbability = crossoverProbability;
+            this.IsUniformCrossover = IsUniformCrossover;
+            this.KPoints = KPoints;
         }
 
         public Crossover(int parentsNumber, int offSpringNumber, int minChromosomeLength, bool isOrdered)
@@ -39,56 +41,73 @@ namespace GeneticSharp.Runner.UnityApp.Commons
 
         public IList<IChromosome> Cross(IList<IChromosome> parents)
         {
-            return UniformCrossover(parents);
+            if (IsUniformCrossover)
+                return UniformCrossover(parents);
+            else
+                return KPointCrossover(parents);
         }
 
         public IList<IChromosome> UniformCrossover(IList<IChromosome> parents)
         {
+            // Make copies of the parent chromosomes
             IChromosome parent1 = parents[0];
             IChromosome parent2 = parents[1];
             IChromosome offspring1 = parent1.Clone();
             IChromosome offspring2 = parent2.Clone();
 
+            // For each gene in the chromosomes
             for (int i = 0; i < parent1.Length; i++)
             {
+                // Randomly decide whether to swap genes
                 if (RandomizationProvider.Current.GetInt(0, 2) == 1)
-                { 
-                    offspring1.ReplaceGene(i, parent2.GetGene(i)); 
+                {
+                    // Swap genes between parents
+                    offspring1.ReplaceGene(i, parent2.GetGene(i));
                     offspring2.ReplaceGene(i, parent1.GetGene(i));
                 }
             }
+
             Debug.Log("Uniform Crossover done");
             return new List<IChromosome> { offspring1, offspring2 };
         }
 
         public IList<IChromosome> KPointCrossover(IList<IChromosome> parents)
         {
+            // Make copies of the parent chromosomes
             IChromosome parent1 = parents[0];
-            IChromosome parent2 = parents[1]; 
+            IChromosome parent2 = parents[1];
             IChromosome offspring1 = parent1.Clone();
             IChromosome offspring2 = parent2.Clone();
+
             List<int> switchPoints = new List<int>();
+
             // Calculate random switch points
-            while (switchPoints.Count < KPoints) { }
+            while (switchPoints.Count < KPoints)
             {
+                // Generate a random switch point within the chromosome length
                 int randomPoint = RandomizationProvider.Current.GetInt(1, parent1.Length - 1);
+
+                // Check if the switch point already exists
                 if (!switchPoints.Contains(randomPoint))
                     switchPoints.Add(randomPoint);
             }
 
-            // Replace the genes
+            // Replace the genes based on the switch points
             bool switchGenes = false;
             for (int i = 0; i < parent1.Length; i++)
             {
+                // If the current index is a switch point, toggle the switch state
                 if (switchPoints.Contains(i))
                     switchGenes = !switchGenes;
 
+                // If the switch state is active, swap genes between parents
                 if (switchGenes)
                 {
                     offspring1.ReplaceGene(i, parent2.GetGene(i));
                     offspring2.ReplaceGene(i, parent1.GetGene(i));
                 }
             }
+
             Debug.Log("K Point Crossover done");
             return new List<IChromosome> { offspring1, offspring2 };
         }

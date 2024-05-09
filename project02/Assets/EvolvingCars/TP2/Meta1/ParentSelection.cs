@@ -14,9 +14,11 @@ public class ParentSelection : SelectionBase
 {
 
     public bool IsRouletteSelection;
+    public int tournamentSize;
 
-    public ParentSelection() : base(2)
+    public ParentSelection(int tournamentSize) : base(2)
     {
+        this.tournamentSize = tournamentSize;
     }
 
     protected override IList<IChromosome> PerformSelectChromosomes(int number, Generation generation)
@@ -28,24 +30,33 @@ public class ParentSelection : SelectionBase
     {
         IList<CarChromosome> population = generation.Chromosomes.Cast<CarChromosome>().ToList();
         IList<IChromosome> parents = new List<IChromosome>();
-            
-        while(parents.Count < number) {
-            int[] randomIndexes = RandomizationProvider.Current.GetUniqueInts(5, 0, population.Count);
 
-            int podium_i = randomIndexes[0];
-            foreach (int index in randomIndexes)
-            {
-                if (population[index].Fitness > population[podium_i].Fitness)
-                {
-                    podium_i = index;
-                }
-            }        
-            parents.Add(population[podium_i]);            
+        // While the required number of parents is not reached
+        while (parents.Count < number)
+        {
+            // Get unique random indexes of individuals in the population
+            int[] randomIndexes = RandomizationProvider.Current.GetUniqueInts(5, 0, population.Count);
+            List<CarChromosome> selectedElements = new List<CarChromosome>();
+
+            foreach (int index in randomIndexes)     
+                // Add the element at the current index to the list
+                selectedElements.Add(population[index]);
+            
+
+            // Sort the selected elements by fitness in descending order
+            var sortedElements = selectedElements.OrderByDescending(element => element.Fitness).ToList();
+
+            // Add the fittest individual to the parents list
+            parents.Add(sortedElements[0]);
         }
+
         UnityEngine.Debug.Log("Tournament Selection done");
         return parents;
     }
 
+
+
+    // TODO: Fix, not working
     private IList<IChromosome> RouletteSelection(int number, Generation generation)
     {
         IList<CarChromosome> population = generation.Chromosomes.Cast<CarChromosome>().ToList();
